@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<input id="test" type="button" value="提交"/>
+<script>
+  // 页面加载完触发
+  window.onload = function(){
+    let test = document.getElementById("test");
+    test.addEventListener("mouseover",myfun2);
+    test.addEventListener("mouseout",myfun1);
+  }
+  function myfun1(){
+    alert("你好1");
+  }
+  function myfun2(){
+    console.log("你好2");
+  }
+</script>
+
+</body>
+</html>

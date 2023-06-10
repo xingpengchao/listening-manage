@@ -1,0 +1,12 @@
+.handle-box {
+  margin-bottom: 20px;
+  font-size: 12px;
+  display: flex;
+  width: 100%;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}

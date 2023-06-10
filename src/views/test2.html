@@ -1,0 +1,149 @@
+<head>
+    <script src="../../node_modules/vue/dist/vue.js"></script>
+    <meta charset="utf-8">
+</head>
+<div id="app">
+    <!--使用组件(组件名称),如果组件名称中有大写字母,如"myList",则这里需要书写<my-list>-->
+    <counter></counter>
+    <counter></counter>
+</div>
+<script type="text/javascript">
+    //定义组件
+    const counterTemp = {
+        //定义组件的模版
+        template:`<button @click='num++'>你点击了{{num}}次</button>`,
+        //定义组件中使用到的数据属性
+        data(){
+            return {
+                num:0
+            }
+        }
+    };
+
+    //全局注册组件：在所有的vue实例中都可以使用组件
+    //参数1：组件名称，参数2：具体的组件
+    //Vue.component("counter", counterTemp);
+
+    var app = new Vue({
+        el:"#app",
+        //局部注册组件: 只能在当前Vue实例中使用
+        components:{
+            //组件名称:具体组件
+            counter: counterTemp
+        }
+    });
+</script>
+
+<div id="app1">
+    <!-- 把父组件中的count传递给子组件的number属性,把父arr传递给子ids,把父p传递给子person -->
+    <aaa1 :number="count" :ids="arr" :person="p"></aaa1>
+</div>
+
+<script>
+    var aaa = {
+        //定义组件的模版
+        template: `<h2>{{num}}---{{number}}--{{ids}}--{{person}}</h2>`,
+        //定义组件中使用到的数据属性
+        data() {
+            return {
+                num: 0
+            }
+        },
+        //给组件添加属性
+        props: {
+            //普通属性number
+            number: "",
+            //数组属性ids
+            ids: [],
+            //对象属性person
+            person: {}
+            /*
+            *	//以上属性还可以书写为以下格式
+            *	items:{
+            *        //数据类型，如果是数组则是Array，如果是对象则是Object
+            *       type:Array,
+            *       //默认值
+            *       default:[]
+            *	}
+            */
+        }
+    };
+
+    //注册:全局注册
+
+    var app = new Vue({
+        el: "#app1",
+
+        data: {
+            count: 5,
+            arr: [1, 2, 3],
+            p: {username: "zhangsan", age: 23}
+        },
+        components:{
+            aaa1:aaa}
+
+
+    });
+</script>
+
+
+
+<!-- 子组件向父组件通信 -->
+<div id="app2">
+    <h1>父组件中:app_num={{app_num}}</h1>
+    <!-- 把父组件的add方法,绑定给子组件的aaa属性,绑定方法使用@属性名="方法名" -->
+    <!-- 把父组件的rem方法,绑定给子组件的bbb属性,绑定方法使用@属性名="方法名 -->
+    <!-- 把父组件的app_num变量,绑定给子组件的counter_num属性,绑定变量使用:属性名="方法名 -->
+    <counter @aaa="add" @bbb="rem" :counter_num="app_num"></counter>
+</div>
+
+<script>
+    //定义一个组件(模版)
+    let counter = {
+        template: `
+             <div>
+                   <h1>子组件中:counter_num={{counter_num}}</h1>
+                   <input type="button" @click="fun1" value="+"/>
+                   <input type="button" @click="fun2" value="-"/>
+            </div>
+                `,
+        props:{
+            //定义属性counter_num,用来接收父组件传递的数据
+            counter_num:null,
+            //定义aaa属性,用来绑定父组件的方法,当然,该定义也可以省略
+            aaa:function(){},
+            //定义bbb属性,用来绑定父组件的方法,当然,该定义也可以省略
+            bbb:function(){},
+        },
+        methods:{
+            fun1(){
+                //找到aaa属性所绑定的那个方法,执行那个方法
+                return this.$emit("aaa");
+            },
+            fun2(){
+                //找到bbb属性所绑定的那个方法,执行那个方法
+                return this.$emit("bbb");
+            }
+        }
+    }
+
+    var app = new Vue({
+        el: '#app2',
+        data: {
+            app_num: 0
+        },
+        components: {
+            counter
+        },
+        methods:{
+            add(){
+                this.app_num++;
+            },
+            rem(){
+                this.app_num--;
+            }
+        }
+    });
+</script>
+
+
