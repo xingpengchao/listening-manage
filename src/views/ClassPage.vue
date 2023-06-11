@@ -162,7 +162,7 @@ export default {
         ...mapState(['classList']),
         currentTableData() {
             console.log(this.classList)
-            return this.classList.slice((this.currentPage - 1) * this.pageSize, this.currentPage * this.pageSize)
+            return this.classList?.slice((this.currentPage - 1) * this.pageSize, this.currentPage * this.pageSize)
         }
     }
 }

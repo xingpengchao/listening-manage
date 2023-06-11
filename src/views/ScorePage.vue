@@ -135,7 +135,7 @@
     computed: {
       ...mapState(['examinationScoreList', 'examinationData']),
       currentTableData() {
-        return this.examinationScoreList.slice((this.currentPage - 1) * this.pageSize, this.currentPage * this.pageSize)
+        return this.examinationScoreList?.slice((this.currentPage - 1) * this.pageSize, this.currentPage * this.pageSize)
       },
 
     }

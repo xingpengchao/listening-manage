@@ -230,7 +230,7 @@ export default {
             this.papers = this.paperList
             this.classes = this.classList
             // console.log(this.examinationList)
-            return this.testPaperList.slice((this.currentPage - 1) * this.pageSize, this.currentPage * this.pageSize)
+            return this.testPaperList?.slice((this.currentPage - 1) * this.pageSize, this.currentPage * this.pageSize)
         },
     }
 }

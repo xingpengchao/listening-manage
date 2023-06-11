@@ -95,7 +95,7 @@ export default {
   computed: {
     ...mapState(['feedbackList']),
     currentTableData() {
-      return this.feedbackList.slice((this.currentPage - 1) * this.pageSize, this.currentPage * this.pageSize)
+      return this.feedbackList?.slice((this.currentPage - 1) * this.pageSize, this.currentPage * this.pageSize)
     }
   }
 }

@@ -127,6 +127,10 @@ export default {
   },
   mounted() {
     this.userId =  sessionStorage.getItem("userId")
+    
+    // 路由初始化根据角色判断
+    const path = this.userId === '0' ? '/student/examination' : '/examination'
+    this.$router.push(path)
   },
 }
 </script>
